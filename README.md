@@ -45,8 +45,7 @@ Aplikasi ini memungkinkan pengelolaan aset, termasuk penambahan, pengeditan, pem
 
 1.  **Clone Repository:**
     ```bash
-    git clone <URL_REPOSITORY_ANDA>
-    cd <NAMA_FOLDER_REPOSITORY>
+    git clone https://github.com/danishyusrah/Sistem-Manajemen-Aset-Menggunakan-Django-Framework.git
     ```
 
 2.  **Buat dan Aktifkan Virtual Environment (Disarankan):**
