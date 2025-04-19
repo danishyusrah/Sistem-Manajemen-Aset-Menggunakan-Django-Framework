@@ -8,13 +8,31 @@ create table users (
     created_at timestamp default now()
 );
 
--- Tabel CRUD Data (contoh: posts)
-create table posts (
-    id uuid primary key default gen_random_uuid(),
-    title text not null,
-    content text,
-    user_id uuid references users(id) on delete cascade,
-    created_at timestamp default now()
+CREATE TABLE assets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    location VARCHAR(255),
+    code VARCHAR(255),
+    -- Kolom lain yang mungkin ada di Supabase,
+    -- namun tidak secara eksplisit digunakan dalam operasi CREATE dan EDIT
+    -- di views.py yang Anda berikan, contoh:
+    -- category INT,
+    -- date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- ...
+    INDEX (name),
+    INDEX (location),
+    INDEX (code)
+);
+
+CREATE TABLE asset_histories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    asset_id INT NOT NULL,
+    new_location VARCHAR(255),
+    moved_by VARCHAR(255),
+    moved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE,
+    INDEX (asset_id),
+    INDEX (moved_at)
 );
 
 -- Supabase policies (biar bisa diakses via API)
