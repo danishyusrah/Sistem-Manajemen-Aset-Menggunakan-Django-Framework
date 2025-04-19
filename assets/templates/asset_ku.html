@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Aset Saya</h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Nama</th>
+          <th>Lokasi</th>
+          <th>Kode</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for asset in assets %}
+        <tr>
+          <td>{{ asset.name }}</td>
+          <td>{{ asset.location }}</td>
+          <td>{{ asset.code }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="text-center">Belum ada aset yang dimiliki.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

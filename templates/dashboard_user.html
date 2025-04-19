@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body text-center py-5">
+        <h3 class="fw-semibold mb-2">Selamat Datang 👋</h3>
+        <h5 class="text-muted mb-4">
+          {{ request.session.user.full_name|default:"User" }}
+        </h5>
+        <p class="lead">
+          Ini adalah halaman dashboard <strong>Pengguna</strong>. Silakan akses
+          menu di sidebar untuk melanjutkan.
+        </p>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger mt-3">
+          <i class="ri-logout-circle-line me-1"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

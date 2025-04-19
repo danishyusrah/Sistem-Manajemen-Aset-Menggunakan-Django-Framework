@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+      <h2 class="fw-bold">Pindahkan Aset</h2>
+    </div>
+    <div class="col-auto">
+      <a
+        href="{% url 'asset_list' %}"
+        class="btn btn-secondary btn-lg shadow-sm"
+      >
+        Kembali
+      </a>
+    </div>
+  </div>
+
+  <div class="card shadow-lg rounded-4 mt-4">
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-4">
+          <label class="form-label">Nama Aset</label>
+          <input
+            type="text"
+            class="form-control"
+            value="{{ asset.name }}"
+            disabled
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Lokasi Saat Ini</label>
+          <input
+            type="text"
+            class="form-control"
+            value="{{ asset.location }}"
+            disabled
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Lokasi Baru</label>
+          <input
+            type="text"
+            name="location"
+            class="form-control"
+            placeholder="Masukkan lokasi baru"
+            required
+          />
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary btn-lg w-48">
+            Pindahkan
+          </button>
+          <a
+            href="{% url 'asset_list' %}"
+            class="btn btn-secondary btn-lg w-48"
+          >
+            Kembali
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

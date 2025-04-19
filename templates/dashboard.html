@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body text-center py-5">
+        <div class="mb-4">
+          <i class="ri-user-settings-line display-4 text-secondary"></i>
+        </div>
+        <h3 class="fw-semibold mb-2">
+          Halo, {{ request.session.user.full_name|default:"Pengguna" }}
+        </h3>
+        <h5 class="text-muted mb-3">
+          (Role: {{ request.session.user.role|title }})
+        </h5>
+        <p class="lead">
+          Anda telah login ke sistem. Silakan gunakan menu di sidebar untuk
+          mengakses fitur sesuai hak akses Anda.
+        </p>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger mt-3">
+          <i class="ri-logout-box-line me-1"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

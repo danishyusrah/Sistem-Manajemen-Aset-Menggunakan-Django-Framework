@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-10 col-lg-8">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body py-5 px-4 text-center">
+        <div class="mb-4">
+          <i class="ri-shield-user-line text-primary display-4"></i>
+        </div>
+        <h3 class="fw-semibold mb-2 text-primary">Dashboard Admin 🛠️</h3>
+        <h5 class="text-muted mb-3">
+          Selamat datang, {{ request.session.user.full_name|default:"Admin" }}
+        </h5>
+        <p class="lead">
+          Anda memiliki akses penuh untuk mengelola sistem, data pengguna, dan
+          berbagai fitur lainnya.
+        </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <a href="#" class="btn btn-outline-primary">
+            <i class="ri-file-list-line me-1"></i> Kelola Postingan
+          </a>
+          <a href="#" class="btn btn-outline-secondary">
+            <i class="ri-group-line me-1"></i> Manajemen User
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

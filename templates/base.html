@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SKILLCODE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" />
+    <script src="{% static 'assets/js/config.js' %}"></script>
+    <link
+      href="{% static 'assets/css/app.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{% static 'assets/css/icons.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      .leftside-menu {
+        width: 250px;
+        transition: all 0.3s ease;
+      }
+
+      .content-page {
+        margin-left: 250px;
+        transition: all 0.3s ease;
+      }
+
+      body.sidebar-collapsed .leftside-menu {
+        margin-left: -250px;
+      }
+
+      body.sidebar-collapsed .content-page {
+        margin-left: 0;
+      }
+
+      @media (max-width: 768px) {
+        .leftside-menu {
+          position: absolute;
+          z-index: 1030;
+          height: 100%;
+        }
+
+        body.sidebar-collapsed .leftside-menu {
+          margin-left: -250px;
+        }
+
+        .content-page {
+          margin-left: 0 !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Navbar -->
+      <div class="navbar-custom">
+        <div class="topbar container-fluid">
+          <div class="d-flex align-items-center gap-1">
+            <div class="logo-topbar">
+              <a href="#" class="logo-light">
+                <span class="logo-lg">
+                  <img src="{% static 'assets/images/logo.png' %}" alt="logo" />
+                </span>
+              </a>
+            </div>
+            <button class="button-toggle-menu" type="button">
+              <i class="mdi mdi-menu fs-20"></i>
+            </button>
+            <h4 class="page-title d-none d-sm-block">SKILLCODE</h4>
+          </div>
+
+          <ul class="topbar-menu d-flex align-items-center gap-3">
+            <li class="dropdown">
+              <a
+                class="nav-link dropdown-toggle nav-user"
+                data-bs-toggle="dropdown"
+                href="#"
+              >
+                <span class="account-user-avatar">
+                  <img
+                    src="{% static 'assets/images/users/avatar-1.jpg' %}"
+                    alt="user"
+                    class="rounded-circle"
+                    style="width: 40px; height: 40px; object-fit: cover"
+                  />
+                </span>
+                <span class="d-lg-block d-none">
+                  <h5 class="my-0 fw-normal">
+                    {{ request.session.user.full_name|default:"Guest" }}
+                    <i
+                      class="ri-arrow-down-s-line fs-22 d-none d-sm-inline-block align-middle"
+                    ></i>
+                  </h5>
+                </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+                <a href="#" class="dropdown-item">
+                  <i class="ri-home-4-line fs-16 align-middle me-1"></i>
+                  Dashboard
+                </a>
+                <a href="{% url 'logout' %}" class="dropdown-item">
+                  <i class="ri-logout-circle-r-line align-middle me-1"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      {% include 'partials/sidebar.html' %}
+
+      <!-- Content -->
+      <div class="content-page">
+        <div class="content">
+          <div class="container-fluid">{% block content %}{% endblock %}</div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer text-center">
+          <div class="container-fluid">
+            <p class="mb-0">
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              © SKILLCODE - All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/lucide/umd/lucide.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.min.js' %}"></script>
+
+    <!-- Toggle Sidebar Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.querySelector(".button-toggle-menu");
+        toggleBtn.addEventListener("click", function () {
+          document.body.classList.toggle("sidebar-collapsed");
+        });
+      });
+    </script>
+  </body>
+</html>

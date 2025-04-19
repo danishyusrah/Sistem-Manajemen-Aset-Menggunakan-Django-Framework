@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Asset Table -->
+    <div id="asset-table" class="card shadow-sm rounded-4 animate__animated animate__fadeIn">
+        <div class="card-body table-responsive">
+            <!-- Pencarian di pojok kanan atas -->
+            <div class="d-flex justify-content-end mb-3">
+                <form method="GET" action="" class="d-flex">
+                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nama aset..." value="{{ request.GET.search }}">
+                    <button class="btn btn-primary btn-sm ms-2" type="submit">Cari</button>
+                </form>
+            </div>
+
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nama Aset</th>
+                        <th>Lokasi</th>
+                        <th>Kode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset.name }}</td>
+                        <td>{{ asset.location }}</td>
+                        <td>{{ asset.code }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center">Belum ada aset yang tersedia.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page|add:"-1" }}&search={{ request.GET.search }}">Previous</a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for p in total_pages|make_list %}
+                    {% with p_num=p|add:"1" %}
+                        <li class="page-item {% if p_num == page %}active{% endif %}">
+                            <a class="page-link" href="?page={{ p_num }}&search={{ request.GET.search }}">{{ p_num }}</a>
+                        </li>
+                    {% endwith %}
+                    {% endfor %}
+
+                    {% if page < total_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page|add:"1" }}&search={{ request.GET.search }}">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+<!-- Animations & Spinner Script -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const spinner = document.getElementById('loading-spinner');
+        const assetTable = document.getElementById('asset-table');
+
+        form.addEventListener('submit', function() {
+            spinner.classList.remove('d-none');
+            assetTable.classList.add('d-none');
+        });
+    });
+</script>
+{% endblock %}

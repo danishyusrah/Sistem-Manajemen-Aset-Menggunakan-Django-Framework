@@ -1,0 +1,108 @@
+{% load static %}
+
+<div class="leftside-menu">
+  <a href="{% url 'dashboard' %}" class="logo logo-light">
+    <span class="logo-lg">
+      <img src="{% static 'assets/images/logo.png' %}" alt="logo" />
+    </span>
+  </a>
+
+  <div data-simplebar>
+    <ul class="side-nav">
+      <li class="side-nav-title">Menu</li>
+
+      <!-- Semua user bisa lihat -->
+      <li class="side-nav-item">
+        <a
+          href="{% url 'dashboard' %}"
+          class="side-nav-link {% if '/dashboard' in request.path %}active{% endif %}"
+        >
+          <i class="ri-home-line"></i>
+          <span> Dashboard </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_ku' %}"
+          class="side-nav-link {% if request.path == '/' %}active{% endif %}"
+        >
+          <i class="ri-file-list-line"></i>
+          <span> Daftar Aset </span>
+        </a>
+      </li>
+
+      {% if request.session.user.role == 'admin' %}
+      <!-- ADMIN Only -->
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_create' %}"
+          class="side-nav-link {% if '/create' in request.path %}active{% endif %}"
+        >
+          <i class="ri-add-line"></i>
+          <span> Tambah Aset </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_list' %}"
+          class="side-nav-link {% if '/create' in request.path %}active{% endif %}"
+        >
+          <i class="ri-add-line"></i>
+          <span> List Aset </span>
+        </a>
+      </li>
+
+      {% if asset %}
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_edit' asset.id %}"
+          class="side-nav-link {% if '/edit' in request.path %}active{% endif %}"
+        >
+          <i class="ri-edit-line"></i>
+          <span> Edit Aset </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_move' asset.id %}"
+          class="side-nav-link {% if '/move' in request.path %}active{% endif %}"
+        >
+          <i class="ri-exchange-line"></i>
+          <span> Pindahkan Aset </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_history' asset.id %}"
+          class="side-nav-link {% if '/history' in request.path %}active{% endif %}"
+        >
+          <i class="ri-history-line"></i>
+          <span> Riwayat Aset </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a
+          href="{% url 'asset_delete' asset.id %}"
+          class="side-nav-link {% if '/delete' in request.path %}active{% endif %}"
+        >
+          <i class="ri-delete-bin-line"></i>
+          <span> Hapus Aset </span>
+        </a>
+      </li>
+      {% endif %} {% endif %}
+
+      <!-- Semua user ada Logout -->
+      <li class="side-nav-item">
+        <a href="{% url 'logout' %}" class="side-nav-link">
+          <i class="ri-logout-box-line"></i>
+          <span> Logout </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
